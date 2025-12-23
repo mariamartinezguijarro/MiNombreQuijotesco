@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu nombre navideño quijotesco</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(#1b0033, #3a1c5a);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.2em;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 400px;
+      margin: 30px auto;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 1em;
+    }
+
+    button {
+      background: gold;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Descubre tu nombre navideño según Cervantes</h1>
+  <p>Una gesta festiva digna de Ciudad Real</p>
+
+  <div class="card">
+    <select id="day">
+      <option value="">Día de nacimiento</option>
+    </select>
+
+    <select id="month">
+      <option value="">Mes de nacimiento</option>
+    </select>
+
+    <button onclick="generateName()">Descúbrelo</button>
+
+    <div id="result"></div>
+  </div>
+
+<script>
+  const quijoteNames = [
+    "Dulcinea", "Sancho", "Hidalgo", "Caballero", "Escudero",
+    "Andante", "Soñador", "Valiente", "Manchego", "Errante"
+  ];
+
+  const navidadNames = [
+    "del Polvorón", "del Mazapán", "de la Estrella", "del Belén",
+    "del Turrón", "de la Nochebuena", "del Trineo", "del Portal",
+    "del Vino Caliente", "del Queso Manchego"
+  ];
+
+  for (let i = 1; i <= 31; i++) {
+    day.innerHTML += `<option value="${i}">${i}</option>`;
+  }
+
+  const months = [
+    "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+  ];
+
+  months.forEach(m => {
+    month.innerHTML += `<option value="${m}">${m}</option>`;
+  });
+
+  function generateName() {
+    if (!day.value || !month.value) return;
+
+    const name1 = quijoteNames[(day.value - 1) % quijoteNames.length];
+    const name2 = navidadNames[months.indexOf(month.value) % navidadNames.length];
+
+    document.getElementById("result").innerText =
+      `${name1} ${name2}`;
+  }
+</script>
+
+</body>
+</html>
