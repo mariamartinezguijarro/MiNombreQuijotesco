@@ -41,35 +41,28 @@ body{
 }
 .screen.active{display:flex}
 
-/* MARCO */
+/* MARCO CON LUCES SEGURAS */
 .frame{
   position:relative;
-  background:rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.18);
   padding:52px 42px;
   border-radius:28px;
   max-width:560px;
   width:92%;
   backdrop-filter:blur(6px);
-  z-index:1;
+  border:4px solid #fff6d5;
+  box-shadow:
+    0 0 0 6px #e63946,
+    0 0 0 12px #2a9d8f,
+    0 0 0 18px #ffd166,
+    0 0 0 24px #4ea8de,
+    0 0 20px gold;
+  animation:glow 2s infinite alternate;
 }
 
-/* LUCES */
-.lights{
-  position:absolute;
-  inset:-28px;
-  pointer-events:none;
-  z-index:0;
-}
-.bulb{
-  position:absolute;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  animation:blink 1.4s infinite alternate;
-}
-@keyframes blink{
-  from{opacity:.4}
-  to{opacity:1}
+@keyframes glow{
+  from{filter:brightness(0.95)}
+  to{filter:brightness(1.1)}
 }
 
 /* TEXTOS */
@@ -79,6 +72,7 @@ body{
   color:#fff6d5;
   text-shadow:0 0 18px gold;
 }
+
 .subtitle{
   font-size:1.45rem;
   margin-bottom:34px;
@@ -130,7 +124,7 @@ select{
 
 <script>
 /* NIEVE */
-for(let i=0;i<70;i++){
+for(let i=0;i<60;i++){
   const s=document.createElement("div");
   s.className="snow";
   s.textContent=Math.random()>.5?"❄️":"⭐";
@@ -143,7 +137,6 @@ for(let i=0;i<70;i++){
 <!-- PANTALLA 1 -->
 <div class="screen active" id="screen1">
   <div class="frame">
-    <div class="lights"></div>
     <div class="title">Descubre tu nombre quijotesco</div>
     <div class="subtitle">
       DONDE SE MEZCLA LA MAGIA DE LA NAVIDAD<br>
@@ -156,7 +149,6 @@ for(let i=0;i<70;i++){
 <!-- PANTALLA 2 -->
 <div class="screen" id="screen2">
   <div class="frame">
-    <div class="lights"></div>
     <div class="title">Elige tu día y tu mes</div>
     <select id="day"><option value="">Día</option></select>
     <select id="month">
@@ -186,7 +178,6 @@ for(let i=0;i<70;i++){
 <!-- PANTALLA 4 -->
 <div class="screen" id="screen4">
   <div class="frame">
-    <div class="lights"></div>
     <div class="result" id="result"></div>
     <div class="subtitle">
       Dichosa edad y dichosos tiempos aquellos en los que este nombre
@@ -196,31 +187,6 @@ for(let i=0;i<70;i++){
 </div>
 
 <script>
-/* LUCES MULTICOLOR */
-function crearLuces(){
-  document.querySelectorAll(".lights").forEach(container=>{
-    const colors=["#e63946","#2a9d8f","#ffd166","#4ea8de","#f4a261","#e9c46a"];
-    const rect=container.getBoundingClientRect();
-    const total=48;
-
-    for(let i=0;i<total;i++){
-      const b=document.createElement("div");
-      b.className="bulb";
-      const c=colors[i%colors.length];
-      b.style.background=c;
-      b.style.boxShadow="0 0 12px "+c;
-
-      if(i<12){ b.style.top="-8px"; b.style.left=(i/12*100)+"%"; }
-      else if(i<24){ b.style.right="-8px"; b.style.top=((i-12)/12*100)+"%"; }
-      else if(i<36){ b.style.bottom="-8px"; b.style.left=((i-24)/12*100)+"%"; }
-      else{ b.style.left="-8px"; b.style.top=((i-36)/12*100)+"%"; }
-
-      container.appendChild(b);
-    }
-  });
-}
-crearLuces();
-
 /* NOMBRES */
 const titulos=["Don","Doña","Señor","Señora"];
 const quijote=[
