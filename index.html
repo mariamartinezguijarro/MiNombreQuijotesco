@@ -2,112 +2,200 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <title>Nombre Navideño Quijotesco</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tu nombre navideño quijotesco</title>
+
+  <!-- Fuente festiva y legible -->
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
-      background: linear-gradient(#1b0033, #3a1c5a);
-      color: white;
+      font-family: 'Playfair Display', serif;
+      background: #f4efe6;
+      color: #2f5d50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .screen {
+      display: none;
       text-align: center;
-      overflow-x: hidden;
+      max-width: 420px;
+      padding: 30px;
+    }
+
+    .active {
+      display: block;
     }
 
     h1 {
-      margin-top: 40px;
-      font-size: 2.2em;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
     }
 
-    p {
-      font-size: 1.1em;
-      margin: 20px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 400px;
-      margin: 30px auto;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: none;
-      font-size: 1em;
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      margin-bottom: 25px;
     }
 
     button {
-      background: gold;
-      font-weight: bold;
+      background: #b0302a;
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
+      margin-top: 15px;
     }
 
-    #result {
-      margin-top: 20px;
-      font-size: 1.4em;
-      font-weight: bold;
+    button:hover {
+      background: #8f241f;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ddd;
+      border-top: 6px solid #c9a24d;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .result-name {
+      font-size: 2rem;
+      margin: 20px 0;
+      font-family: 'Mountains of Christmas', cursive;
+      color: #b0302a;
+    }
+
+    .result-text {
+      font-size: 0.95rem;
+      margin-top: 10px;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>Descubre tu nombre navideño según Cervantes</h1>
-  <p>Una gesta festiva digna de Ciudad Real</p>
+  <!-- PANTALLA 1 -->
+  <div class="screen active" id="screen1">
+    <h1>Descubre tu nombre quijotesco</h1>
+    <h2>Edición cervantina, donde se mezcla la magia de la Navidad con la locura de los caballeros andantes</h2>
+    <button onclick="goToScreen(2)">¡CREA MI NOMBRE!</button>
+  </div>
 
-  <div class="card">
+  <!-- PANTALLA 2 -->
+  <div class="screen" id="screen2">
+    <h2>Elige tu día y tu mes de nacimiento</h2>
+
     <select id="day">
-      <option value="">Día de nacimiento</option>
+      <option value="">Día</option>
     </select>
 
     <select id="month">
-      <option value="">Mes de nacimiento</option>
+      <option value="">Mes</option>
+      <option value="0">Enero</option>
+      <option value="1">Febrero</option>
+      <option value="2">Marzo</option>
+      <option value="3">Abril</option>
+      <option value="4">Mayo</option>
+      <option value="5">Junio</option>
+      <option value="6">Julio</option>
+      <option value="7">Agosto</option>
+      <option value="8">Septiembre</option>
+      <option value="9">Octubre</option>
+      <option value="10">Noviembre</option>
+      <option value="11">Diciembre</option>
     </select>
 
-    <button onclick="generateName()">Descúbrelo</button>
-
-    <div id="result"></div>
+    <button onclick="generateName()">✨ DESVELAR MI NOMBRE</button>
   </div>
 
-<script>
-  const quijoteNames = [
-    "Dulcinea", "Sancho", "Hidalgo", "Caballero", "Escudero",
-    "Andante", "Soñador", "Valiente", "Manchego", "Errante"
-  ];
+  <!-- PANTALLA 3 -->
+  <div class="screen" id="screen3">
+    <div class="spinner"></div>
+    <p><strong>Consultando los libros…</strong><br>
+    mezclando magia navideña y locura hidalga</p>
+  </div>
 
-  const navidadNames = [
-    "del Polvorón", "del Mazapán", "de la Estrella", "del Belén",
-    "del Turrón", "de la Nochebuena", "del Trineo", "del Portal",
-    "del Vino Caliente", "del Queso Manchego"
-  ];
+  <!-- PANTALLA 4 -->
+  <div class="screen" id="screen4">
+    <div class="result-name" id="resultName"></div>
+    <div class="result-text">
+      Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.
+    </div>
+  </div>
 
-  for (let i = 1; i <= 31; i++) {
-    day.innerHTML += `<option value="${i}">${i}</option>`;
-  }
+  <script>
+    const prefixes = [
+      "Don", "Doña", "Hidalgo", "Dama", "Caballero", "Escudero",
+      "Andante", "Guardían", "Cronista", "Peregrino", "Noble",
+      "Señor", "Señora", "Valiente", "Custodio", "Fiel",
+      "Intrépido", "Soñador", "Ilustre", "Honrado",
+      "Audaz", "Gallardo", "Virtuoso", "Leal",
+      "Errante", "Viajero", "Sabio", "Gentil",
+      "Heroico", "Brillante", "Legendario"
+    ];
 
-  const months = [
-    "Enero","Febrero","Marzo","Abril","Mayo","Junio",
-    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
-  ];
+    const suffixes = [
+      "del Polvorón", "del Turrón Real", "de la Estrella de Oriente",
+      "del Roscón Dorado", "del Belén Nevado", "del Molino Iluminado",
+      "del Carbón Travieso", "de la Nochebuena",
+      "del Brillo Navideño", "de los Reyes Magos",
+      "del Camino Manchego", "de la Magia Invernal"
+    ];
 
-  months.forEach(m => {
-    month.innerHTML += `<option value="${m}">${m}</option>`;
-  });
+    function goToScreen(num) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + num).classList.add('active');
+    }
 
-  function generateName() {
-    if (!day.value || !month.value) return;
+    function generateName() {
+      const day = document.getElementById('day').value;
+      const month = document.getElementById('month').value;
 
-    const name1 = quijoteNames[(day.value - 1) % quijoteNames.length];
-    const name2 = navidadNames[months.indexOf(month.value) % navidadNames.length];
+      if (day === "" || month === "") {
+        alert("Por favor, elige día y mes");
+        return;
+      }
 
-    document.getElementById("result").innerText =
-      `${name1} ${name2}`;
-  }
-</script>
+      goToScreen(3);
+
+      setTimeout(() => {
+        const name = prefixes[day - 1] + " " + suffixes[month];
+        document.getElementById('resultName').textContent = name;
+        goToScreen(4);
+      }, 1800);
+    }
+
+    // Rellenar días
+    const daySelect = document.getElementById('day');
+    for (let i = 1; i <= 31; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      daySelect.appendChild(opt);
+    }
+  </script>
 
 </body>
 </html>
