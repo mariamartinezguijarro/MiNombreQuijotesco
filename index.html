@@ -2,133 +2,172 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Nombre Navideño Quijotesco</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nombre Navideño Quijotesco</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  margin:0;
   font-family:'Mountains of Christmas', cursive;
-  background:linear-gradient(180deg,#1f5f4a,#7bbf9e);
-  overflow:hidden;
+  background:linear-gradient(180deg,#184e3a,#6fbf9e);
   color:#fff;
+  overflow:hidden;
 }
 
-/* NIEVE / ESTRELLAS */
+/* ---------------- FONDO NIEVE / ESTRELLAS ---------------- */
 .snow{
   position:fixed;
-  top:-30px;
+  top:-40px;
   font-size:20px;
   animation:fall linear infinite;
   pointer-events:none;
+  opacity:.9;
 }
-@keyframes fall{to{transform:translateY(110vh)}}
+@keyframes fall{
+  to{transform:translateY(120vh)}
+}
 
-/* PANTALLAS */
+/* ---------------- PANTALLAS ---------------- */
 .screen{
   display:none;
+  width:100vw;
   height:100vh;
-  width:100%;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
 .screen.active{display:flex}
 
-/* MARCO */
+/* ---------------- MARCO ---------------- */
 .frame{
   position:relative;
-  background:rgba(255,255,255,0.15);
-  padding:50px 40px;
-  border-radius:24px;
-  max-width:520px;
+  background:rgba(255,255,255,0.16);
+  padding:52px 42px;
+  border-radius:28px;
+  max-width:560px;
   width:92%;
-  backdrop-filter: blur(4px);
+  backdrop-filter:blur(6px);
 }
 
-/* LUCES */
+/* ---------------- LUCES ---------------- */
 .lights{
   position:absolute;
-  inset:-26px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
+  inset:-36px;
   pointer-events:none;
 }
-.bulb{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  margin:6px;
-  animation:blink 1.4s infinite alternate;
-}
-.red{background:#e63946; box-shadow:0 0 10px #e63946}
-.green{background:#2a9d8f; box-shadow:0 0 10px #2a9d8f}
-.yellow{background:#ffd166; box-shadow:0 0 10px #ffd166}
-.blue{background:#4ea8de; box-shadow:0 0 10px #4ea8de}
-@keyframes blink{from{opacity:.4}to{opacity:1}}
 
-/* TEXTOS */
-.title{
-  font-size:3.1rem;
-  margin-bottom:14px;
-  color:#fff7d6;
-  text-shadow:0 0 14px gold;
+.lights::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0 22px,
+      #e63946 22px 26px,
+      transparent 26px 44px,
+      #2a9d8f 44px 48px,
+      transparent 48px 66px,
+      #ffd166 66px 70px,
+      transparent 70px 88px,
+      #4ea8de 88px 92px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 22px,
+      #e63946 22px 26px,
+      transparent 26px 44px,
+      #2a9d8f 44px 48px,
+      transparent 48px 66px,
+      #ffd166 66px 70px,
+      transparent 70px 88px,
+      #4ea8de 88px 92px
+    );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  padding:22px;
+  box-sizing:border-box;
+  filter:drop-shadow(0 0 8px gold);
+  animation:twinkle 1.6s infinite alternate;
 }
+
+@keyframes twinkle{
+  from{opacity:.6}
+  to{opacity:1}
+}
+
+/* ---------------- TEXTOS ---------------- */
+.title{
+  font-size:3.2rem;
+  margin-bottom:16px;
+  color:#fff6d5;
+  text-shadow:0 0 18px gold;
+}
+
 .subtitle{
   font-size:1.45rem;
-  margin-bottom:30px;
+  margin-bottom:34px;
   line-height:1.35;
 }
 
-/* BOTONES */
+/* ---------------- BOTONES ---------------- */
 button{
   font-family:inherit;
-  font-size:1.35rem;
-  padding:18px 34px;
+  font-size:1.4rem;
+  padding:18px 36px;
   border:none;
-  border-radius:16px;
+  border-radius:18px;
   background:#c1121f;
   color:#fff;
   cursor:pointer;
-  box-shadow:0 0 22px gold;
+  box-shadow:0 0 26px gold;
 }
-button:hover{transform:scale(1.05)}
+button:hover{transform:scale(1.06)}
 
-/* SELECT */
+/* ---------------- SELECT ---------------- */
 select{
   width:100%;
   padding:14px;
-  margin:12px 0;
+  margin:14px 0;
   font-size:1.2rem;
-  border-radius:10px;
+  border-radius:12px;
   border:none;
 }
 
-/* SPINNER */
+/* ---------------- CARGA ---------------- */
 .spinner{
-  font-size:3.6rem;
+  font-size:4rem;
   animation:spin 1s linear infinite;
-  margin-bottom:18px;
+  margin-bottom:22px;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------------- RESULTADO ---------------- */
+.result{
+  font-size:2.8rem;
+  margin-bottom:26px;
+  text-shadow:0 0 22px gold;
+}
 </style>
 </head>
 
 <body>
 
 <script>
-/* NIEVE */
-for(let i=0;i<55;i++){
+/* NIEVE Y ESTRELLAS */
+for(let i=0;i<70;i++){
   const s=document.createElement("div");
   s.className="snow";
   s.textContent=Math.random()>.5?"❄️":"⭐";
   s.style.left=Math.random()*100+"%";
-  s.style.animationDuration=4+Math.random()*6+"s";
+  s.style.animationDuration=5+Math.random()*7+"s";
   document.body.appendChild(s);
 }
 </script>
@@ -136,22 +175,20 @@ for(let i=0;i<55;i++){
 <!-- PANTALLA 1 -->
 <div class="screen active" id="screen1">
   <div class="frame">
-    <div class="lights">
-      <span class="bulb red"></span><span class="bulb green"></span>
-      <span class="bulb yellow"></span><span class="bulb blue"></span>
-    </div>
+    <div class="lights"></div>
     <div class="title">Descubre tu nombre quijotesco</div>
     <div class="subtitle">
       DONDE SE MEZCLA LA MAGIA DE LA NAVIDAD<br>
       CON LA LOCURA DE LOS CABALLEROS ANDANTES
     </div>
-    <button id="startBtn">¡CREA MI NOMBRE!</button>
+    <button onclick="go(2)">¡CREA MI NOMBRE!</button>
   </div>
 </div>
 
 <!-- PANTALLA 2 -->
 <div class="screen" id="screen2">
   <div class="frame">
+    <div class="lights"></div>
     <div class="title">Elige tu día y tu mes</div>
     <select id="day"><option value="">Día</option></select>
     <select id="month">
@@ -163,7 +200,7 @@ for(let i=0;i<55;i++){
       <option value="8">Septiembre</option><option value="9">Octubre</option>
       <option value="10">Noviembre</option><option value="11">Diciembre</option>
     </select>
-    <button id="revealBtn">✨ DESVELAR MI NOMBRE</button>
+    <button onclick="reveal()">✨ DESVELAR MI NOMBRE</button>
   </div>
 </div>
 
@@ -181,27 +218,28 @@ for(let i=0;i<55;i++){
 <!-- PANTALLA 4 -->
 <div class="screen" id="screen4">
   <div class="frame">
-    <div class="lights">
-      <span class="bulb red"></span><span class="bulb green"></span>
-      <span class="bulb yellow"></span><span class="bulb blue"></span>
-    </div>
-    <div class="title" id="result"></div>
+    <div class="lights"></div>
+    <div class="result" id="result"></div>
     <div class="subtitle">
-      Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.
+      Dichosa edad y dichosos tiempos aquellos en los que este nombre
+      sea pronunciado estas Navidades en la noble Ciudad Real.
     </div>
   </div>
 </div>
 
 <script>
-/* DATOS DE NOMBRES COMPLETOS */
-const titles=["Don","Doña","Señor","Señora"];
-const names=[
-  "Alonso","Dulcinea","Sancho","Teresa",
-  "Quijano","Aldonza","Martín","Leonor"
+/* NOMBRES */
+const titulos=["Don","Doña","Señor","Señora"];
+const quijote=[
+  "Alonso el Andante","Dulcinea la Valiente","Sancho el Festivo",
+  "Quijano el Noble","Teresa la Alegre","Aldonza la Estrellada",
+  "Martín el Errante","Leonor la Venturosa"
 ];
-const suffixes=[
+const navidad=[
   "del Polvorón","del Turrón Real","de la Estrella de Oriente",
-  "del Molino Nevado","de la Nochebuena","de los Reyes Magos"
+  "del Molino Nevado","de la Nochebuena","de los Reyes Magos",
+  "del Roscón Dorado","del Portal Iluminado","de la Campana Santa",
+  "del Trineo Festivo","del Muérdago Encantado","de la Nieve Eterna"
 ];
 
 /* DÍAS */
@@ -211,27 +249,25 @@ for(let i=1;i<=31;i++){
 }
 
 /* NAVEGACIÓN */
-function show(id){
+function go(n){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+  document.getElementById("screen"+n).classList.add("active");
 }
 
-document.getElementById("startBtn").addEventListener("click",()=>show("screen2"));
-
-document.getElementById("revealBtn").addEventListener("click",()=>{
+function reveal(){
   const d=daySel.value;
   const m=document.getElementById("month").value;
   if(!d||m===""){alert("Elige día y mes");return;}
-  show("screen3");
+  go(3);
   setTimeout(()=>{
-    const fullName=
-      titles[d%titles.length]+" "+
-      names[d%names.length]+" "+
-      suffixes[m%suffixes.length];
-    document.getElementById("result").textContent=fullName;
-    show("screen4");
+    const nombre=
+      titulos[d%titulos.length]+" "+
+      quijote[d%quijote.length]+" "+
+      navidad[m%navidad.length];
+    document.getElementById("result").textContent=nombre;
+    go(4);
   },5000);
-});
+}
 </script>
 
 </body>
