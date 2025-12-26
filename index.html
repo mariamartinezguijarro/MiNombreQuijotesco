@@ -8,153 +8,160 @@
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: 'Mountains of Christmas', cursive;
-  background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("https://images.unsplash.com/photo-1608889175250-c3b0c1666e1f?auto=format&fit=crop&w=1600&q=80")
-    center/cover no-repeat fixed;
-  color: #fff;
-  overflow: hidden;
+body{
+  margin:0;
+  font-family:'Mountains of Christmas', cursive;
+  background:linear-gradient(180deg,#1f5f4a,#7bbf9e);
+  overflow:hidden;
+  color:#fff;
 }
 
-/* COPOS / ESTRELLAS */
-.snow {
-  position: fixed;
-  top: -20px;
-  font-size: 18px;
-  animation: fall linear infinite;
-  opacity: 0.9;
+/* ESTRELLAS / COPOS */
+.snow{
+  position:fixed;
+  top:-30px;
+  font-size:20px;
+  animation:fall linear infinite;
+  pointer-events:none;
 }
 
-@keyframes fall {
-  to { transform: translateY(110vh); }
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 
 /* PANTALLAS */
-.screen {
-  display: none;
-  height: 100vh;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.screen{
+  display:none;
+  height:100vh;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
-
-.screen.active {
-  display: flex;
-}
+.screen.active{display:flex}
 
 /* MARCO CENTRAL */
-.frame {
-  position: relative;
-  background: rgba(0,0,0,0.6);
-  padding: 40px;
-  border-radius: 20px;
-  max-width: 440px;
-  width: 90%;
+.frame{
+  position:relative;
+  background:rgba(255,255,255,0.15);
+  padding:50px 40px;
+  border-radius:24px;
+  max-width:520px;
+  width:92%;
+  backdrop-filter: blur(4px);
 }
 
-/* LUCES NAVIDEÑAS DE COLORES */
-.frame::before {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: 26px;
-  border: 10px dotted red;
-  animation: lights 1.2s infinite alternate;
+/* LUCES FÍSICAS */
+.lights{
+  position:absolute;
+  inset:-26px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  pointer-events:none;
+}
+.bulb{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  margin:6px;
+  animation:blink 1.4s infinite alternate;
+}
+.red{background:#e63946; box-shadow:0 0 10px #e63946}
+.green{background:#2a9d8f; box-shadow:0 0 10px #2a9d8f}
+.yellow{background:#ffd166; box-shadow:0 0 10px #ffd166}
+.blue{background:#4ea8de; box-shadow:0 0 10px #4ea8de}
+
+@keyframes blink{
+  from{opacity:.4}
+  to{opacity:1}
 }
 
-@keyframes lights {
-  0% { border-color: red; }
-  25% { border-color: green; }
-  50% { border-color: yellow; }
-  75% { border-color: blue; }
-  100% { border-color: red; }
+/* TEXTOS */
+.title{
+  font-size:3.1rem;
+  margin-bottom:14px;
+  color:#fff7d6;
+  text-shadow:0 0 14px gold;
 }
-
-/* TITULO */
-.title {
-  font-size: 2.6rem;
-  margin-bottom: 10px;
-  text-shadow: 0 0 12px gold;
-}
-
-/* SUBTITULO */
-.subtitle {
-  font-size: 1.15rem;
-  margin-bottom: 25px;
-  line-height: 1.4;
+.subtitle{
+  font-size:1.45rem;
+  margin-bottom:30px;
+  line-height:1.35;
 }
 
 /* BOTONES */
-button {
-  font-family: inherit;
-  font-size: 1.2rem;
-  padding: 16px 30px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  background: #b0302a;
-  color: #fff;
-  box-shadow: 0 0 20px gold;
+button{
+  font-family:inherit;
+  font-size:1.35rem;
+  padding:18px 34px;
+  border:none;
+  border-radius:16px;
+  background:#c1121f;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 22px gold;
 }
+button:hover{transform:scale(1.05)}
 
-/* SELECTS */
-select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  border: none;
+/* SELECT */
+select{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  font-size:1.2rem;
+  border-radius:10px;
+  border:none;
 }
 
 /* SPINNER */
-.spinner {
-  font-size: 3.2rem;
-  animation: spin 1s linear infinite;
-  margin-bottom: 15px;
+.spinner{
+  font-size:3.6rem;
+  animation:spin 1s linear infinite;
+  margin-bottom:18px;
 }
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 
 <body>
 
 <script>
-/* GENERAR COPOS Y ESTRELLAS */
-for (let i = 0; i < 45; i++) {
-  const snow = document.createElement("div");
-  snow.className = "snow";
-  snow.textContent = Math.random() > 0.5 ? "❄️" : "⭐";
-  snow.style.left = Math.random() * 100 + "%";
-  snow.style.animationDuration = 4 + Math.random() * 6 + "s";
-  document.body.appendChild(snow);
+/* NIEVE / ESTRELLAS */
+for(let i=0;i<55;i++){
+  const s=document.createElement("div");
+  s.className="snow";
+  s.textContent=Math.random()>.5?"❄️":"⭐";
+  s.style.left=Math.random()*100+"%";
+  s.style.animationDuration=4+Math.random()*6+"s";
+  document.body.appendChild(s);
 }
 </script>
 
 <!-- PANTALLA 1 -->
 <div class="screen active" id="screen1">
   <div class="frame">
+    <div class="lights">
+      <span class="bulb red"></span><span class="bulb green"></span><span class="bulb yellow"></span><span class="bulb blue"></span>
+      <span class="bulb green"></span><span class="bulb red"></span><span class="bulb blue"></span><span class="bulb yellow"></span>
+    </div>
     <div class="title">Descubre tu nombre quijotesco</div>
     <div class="subtitle">
       DONDE SE MEZCLA LA MAGIA DE LA NAVIDAD<br>
       CON LA LOCURA DE LOS CABALLEROS ANDANTES
     </div>
-    <button onclick="goTo(2)">¡CREA MI NOMBRE!</button>
+    <button id="startBtn">¡CREA MI NOMBRE!</button>
   </div>
 </div>
 
 <!-- PANTALLA 2 -->
 <div class="screen" id="screen2">
   <div class="frame">
+    <div class="lights">
+      <span class="bulb yellow"></span><span class="bulb red"></span><span class="bulb green"></span><span class="bulb blue"></span>
+    </div>
     <div class="title">Elige tu día y tu mes</div>
 
     <select id="day">
@@ -163,21 +170,15 @@ for (let i = 0; i < 45; i++) {
 
     <select id="month">
       <option value="">Mes</option>
-      <option value="0">Enero</option>
-      <option value="1">Febrero</option>
-      <option value="2">Marzo</option>
-      <option value="3">Abril</option>
-      <option value="4">Mayo</option>
-      <option value="5">Junio</option>
-      <option value="6">Julio</option>
-      <option value="7">Agosto</option>
-      <option value="8">Septiembre</option>
-      <option value="9">Octubre</option>
-      <option value="10">Noviembre</option>
-      <option value="11">Diciembre</option>
+      <option value="0">Enero</option><option value="1">Febrero</option>
+      <option value="2">Marzo</option><option value="3">Abril</option>
+      <option value="4">Mayo</option><option value="5">Junio</option>
+      <option value="6">Julio</option><option value="7">Agosto</option>
+      <option value="8">Septiembre</option><option value="9">Octubre</option>
+      <option value="10">Noviembre</option><option value="11">Diciembre</option>
     </select>
 
-    <button onclick="generateName()">✨ DESVELAR MI NOMBRE</button>
+    <button id="revealBtn">✨ DESVELAR MI NOMBRE</button>
   </div>
 </div>
 
@@ -196,52 +197,49 @@ for (let i = 0; i < 45; i++) {
 <div class="screen" id="screen4">
   <div class="frame">
     <div class="title" id="result"></div>
+    <div class="subtitle">
+      Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.
+    </div>
   </div>
 </div>
 
 <script>
 /* DATOS */
-const prefixes = [
+const prefixes=[
   "Don","Doña","Hidalgo","Dama","Caballero",
   "Noble","Andante","Ilustre","Valiente","Gallardo"
 ];
-
-const suffixes = [
+const suffixes=[
   "del Polvorón","del Turrón Real","de la Estrella de Oriente",
   "del Molino Nevado","de la Nochebuena","de los Reyes Magos"
 ];
 
-/* RELLENAR DÍAS */
-const daySelect = document.getElementById("day");
-for (let i = 1; i <= 31; i++) {
-  daySelect.innerHTML += `<option value="${i}">${i}</option>`;
+/* DÍAS */
+const daySel=document.getElementById("day");
+for(let i=1;i<=31;i++){
+  daySel.innerHTML+=`<option value="${i}">${i}</option>`;
 }
 
-/* NAVEGACIÓN */
-function goTo(num) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById("screen" + num).classList.add("active");
+/* NAVEGACIÓN SEGURA */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-/* GENERAR NOMBRE (SIN UNDEFINED) */
-function generateName() {
-  const day = document.getElementById("day").value;
-  const month = document.getElementById("month").value;
+/* BOTONES */
+document.getElementById("startBtn").addEventListener("click",()=>show("screen2"));
 
-  if (!day || month === "") {
-    alert("Elige día y mes");
-    return;
-  }
-
-  goTo(3);
-
-  setTimeout(() => {
-    const prefix = prefixes[(day - 1) % prefixes.length];
-    const suffix = suffixes[month % suffixes.length];
-    document.getElementById("result").textContent = prefix + " " + suffix;
-    goTo(4);
-  }, 5000);
-}
+document.getElementById("revealBtn").addEventListener("click",()=>{
+  const d=daySel.value;
+  const m=document.getElementById("month").value;
+  if(!d||m===""){alert("Elige día y mes");return;}
+  show("screen3");
+  setTimeout(()=>{
+    const name=prefixes[(d-1)%prefixes.length]+" "+suffixes[m%suffixes.length];
+    document.getElementById("result").textContent=name;
+    show("screen4");
+  },5000);
+});
 </script>
 
 </body>
