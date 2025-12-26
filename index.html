@@ -3,131 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nombre Quijotesco Navideño · Ciudad Real</title>
+<title>Nombre Quijotesco Navideño</title>
 
 <style>
-/* ================= RESET ================= */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  background: radial-gradient(circle at top, #1b3a2b, #0b1a14);
-  color: #fff;
-  min-height: 100vh;
-  overflow: hidden;
+/* ========= RESET ========= */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top,#1e4b3a,#0b1a14);
+  color:#fff;
+  overflow:hidden;
 }
 
-/* ================= UTILIDADES ================= */
-.hidden { display: none; }
-.center { text-align: center; }
-button {
-  cursor: pointer;
-  border: none;
-  padding: 18px 32px;
-  font-size: 1.2rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #c62828, #f4c430);
-  color: #fff;
-  font-weight: bold;
-  box-shadow: 0 0 15px rgba(255,215,0,.6);
+/* ========= PANTALLAS ========= */
+.screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1;
 }
-button:hover { transform: scale(1.05); }
+.hidden{display:none}
 
-/* ================= LUCES ================= */
-.lights {
-  position: absolute;
-  inset: -10px;
-  pointer-events: none;
-}
-.light {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  position: absolute;
-  animation: blink 1.8s infinite alternate;
-}
-.light.red { background:#e53935; box-shadow:0 0 10px #e53935; }
-.light.green { background:#43a047; box-shadow:0 0 10px #43a047; }
-.light.yellow { background:#fdd835; box-shadow:0 0 10px #fdd835; }
-
-@keyframes blink {
-  from { opacity: .4; }
-  to { opacity: 1; }
+/* ========= TARJETA ========= */
+.card{
+  position:relative;
+  width:min(90%,520px);
+  padding:45px 35px;
+  border-radius:26px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(6px);
+  text-align:center;
 }
 
-/* ================= NIEVE / ESTRELLAS ================= */
-.star {
-  position: absolute;
-  color: rgba(255,255,255,.8);
-  animation: fall linear infinite;
+/* ========= TITULOS ========= */
+h1{
+  font-size:2.6rem;
+  font-weight:900;
+  margin-bottom:15px;
 }
-@keyframes fall {
-  from { transform: translateY(-10vh); }
-  to { transform: translateY(110vh); }
-}
-
-/* ================= CONTENEDORES ================= */
-.screen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.card {
-  position: relative;
-  background: rgba(255,255,255,.08);
-  border-radius: 24px;
-  padding: 50px 40px;
-  width: min(90%, 520px);
-  backdrop-filter: blur(6px);
+h2{
+  font-size:1.2rem;
+  margin-bottom:30px;
+  font-weight:normal;
 }
 
-/* ================= TITULOS ================= */
-h1 {
-  font-size: 2.6rem;
-  margin-bottom: 15px;
-  font-weight: 900;
+/* ========= BOTONES ========= */
+button{
+  padding:18px 34px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#c62828,#f4c430);
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(255,215,0,.6);
 }
-h2 {
-  font-size: 1.3rem;
-  font-weight: normal;
-  margin-bottom: 30px;
+button:hover{transform:scale(1.05)}
+
+/* ========= SELECT ========= */
+select{
+  width:100%;
+  padding:14px;
+  margin:10px 0 20px;
+  font-size:1.1rem;
+  border-radius:10px;
+  border:none;
 }
 
-/* ================= SELECTS ================= */
-select {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0 20px;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  border: none;
+/* ========= RESULTADO ========= */
+.result{
+  font-size:2.4rem;
+  font-weight:900;
+  margin-bottom:20px;
+  text-shadow:0 0 18px gold;
+}
+.frase{
+  font-style:italic;
+  opacity:.9;
 }
 
-/* ================= RESULTADO ================= */
-.result-name {
-  font-size: 2.4rem;
-  font-weight: 900;
-  margin-bottom: 20px;
-  text-shadow: 0 0 15px gold;
+/* ========= CARGA ========= */
+.loader{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:6px solid rgba(255,255,255,.3);
+  border-top-color:gold;
+  animation:spin 1s linear infinite;
+  margin:0 auto 20px;
 }
-.result-phrase {
-  font-style: italic;
-  opacity: .9;
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ================= CARGA ================= */
-.loader {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 6px solid rgba(255,255,255,.3);
-  border-top-color: gold;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
+/* ========= LUCES ========= */
+.lights{
+  position:absolute;
+  inset:-12px;
+  pointer-events:none;
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.light{
+  position:absolute;
+  width:14px;height:14px;
+  border-radius:50%;
+  animation:blink 1.6s infinite alternate;
+}
+@keyframes blink{from{opacity:.4}to{opacity:1}}
+
+/* ========= ESTRELLAS ========= */
+.star{
+  position:absolute;
+  top:-5vh;
+  color:rgba(255,255,255,.85);
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  from{transform:translateY(-10vh)}
+  to{transform:translateY(110vh)}
 }
 </style>
 </head>
@@ -136,11 +129,11 @@ select {
 
 <!-- ESTRELLAS -->
 <script>
-for(let i=0;i<60;i++){
+for(let i=0;i<80;i++){
   const s=document.createElement("div");
   s.className="star";
   s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=5+Math.random()*10+"s";
+  s.style.animationDuration=6+Math.random()*10+"s";
   s.style.fontSize=10+Math.random()*10+"px";
   s.innerText="✦";
   document.body.appendChild(s);
@@ -148,19 +141,19 @@ for(let i=0;i<60;i++){
 </script>
 
 <!-- PANTALLA 1 -->
-<div id="screen1" class="screen">
-  <div class="card center">
-    <div class="lights" id="lights1"></div>
+<div id="s1" class="screen">
+  <div class="card">
+    <div class="lights" id="l1"></div>
     <h1>Descubre tu nombre quijotesco</h1>
     <h2>Donde se mezcla la magia de la Navidad con la locura de los caballeros andantes</h2>
-    <button onclick="goTo(2)">¡CREA MI NOMBRE!</button>
+    <button onclick="go(2)">¡CREA MI NOMBRE!</button>
   </div>
 </div>
 
 <!-- PANTALLA 2 -->
-<div id="screen2" class="screen hidden">
-  <div class="card center">
-    <div class="lights" id="lights2"></div>
+<div id="s2" class="screen hidden">
+  <div class="card">
+    <div class="lights" id="l2"></div>
     <h1>Elige tu nacimiento</h1>
     <select id="day">
       <option value="">Día</option>
@@ -182,19 +175,19 @@ for(let i=0;i<60;i++){
 </div>
 
 <!-- PANTALLA 3 -->
-<div id="screen3" class="screen hidden">
-  <div class="card center">
+<div id="s3" class="screen hidden">
+  <div class="card">
     <div class="loader"></div>
     <p>Consultando los libros…<br>mezclando magia navideña y locura hidalga</p>
   </div>
 </div>
 
 <!-- PANTALLA 4 -->
-<div id="screen4" class="screen hidden">
-  <div class="card center">
-    <div class="lights" id="lights4"></div>
-    <div id="result" class="result-name"></div>
-    <div class="result-phrase">
+<div id="s4" class="screen hidden">
+  <div class="card">
+    <div class="lights" id="l4"></div>
+    <div id="res" class="result"></div>
+    <div class="frase">
       Dichosa edad y dichosos tiempos aquellos en los que este nombre
       sea pronunciado estas Navidades en la noble Ciudad Real.
     </div>
@@ -202,17 +195,16 @@ for(let i=0;i<60;i++){
 </div>
 
 <script>
-function goTo(n){
+function go(n){
   document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
-  document.getElementById("screen"+n).classList.remove("hidden");
+  document.getElementById("s"+n).classList.remove("hidden");
 }
 
-const namesDay = [
+const baseNombres=[
   "Don Hidalgo","Doña Andante","Don Caballero","Doña Venturosa",
   "Don Errante","Doña Valiente","Don Noble","Doña Gallarda"
 ];
-
-const namesMonth = [
+const navidad=[
   "del Polvorón","del Turrón","de la Estrella","del Belén",
   "del Trineo","del Muérdago","de la Nieve","del Roscón",
   "del Portal","del Candil","del Rey Mago","de la Campana"
@@ -221,30 +213,31 @@ const namesMonth = [
 function generate(){
   const d=document.getElementById("day").value;
   const m=document.getElementById("month").selectedIndex-1;
-  if(!d || m<0) return alert("Selecciona día y mes");
-
-  goTo(3);
+  if(!d||m<0){alert("Selecciona día y mes");return}
+  go(3);
   setTimeout(()=>{
-    const name = namesDay[d % namesDay.length] + " " + namesMonth[m];
-    document.getElementById("result").innerText = name;
-    goTo(4);
+    const nombre=baseNombres[d%baseNombres.length]+" "+navidad[m];
+    document.getElementById("res").innerText=nombre;
+    go(4);
   },5000);
 }
 
-/* CREAR LUCES */
-function makeLights(id){
+/* LUCES MULTICOLOR */
+function luces(id){
   const c=document.getElementById(id);
-  for(let i=0;i<30;i++){
+  const colores=["#e53935","#43a047","#fdd835","#1e88e5","#8e24aa","#fb8c00"];
+  for(let i=0;i<40;i++){
     const l=document.createElement("div");
-    l.className="light "+["red","green","yellow"][i%3];
-    l.style.left=(i*100/30)+"%";
-    l.style.top=(i%2? "-8px":"calc(100% - 6px)");
+    l.className="light";
+    const col=colores[i%colores.length];
+    l.style.background=col;
+    l.style.boxShadow="0 0 12px "+col;
+    l.style.left=(i*100/40)+"%";
+    l.style.top=(i%2?"-8px":"calc(100% - 6px)");
     c.appendChild(l);
   }
 }
-makeLights("lights1");
-makeLights("lights2");
-makeLights("lights4");
+luces("l1");luces("l2");luces("l4");
 </script>
 
 </body>
