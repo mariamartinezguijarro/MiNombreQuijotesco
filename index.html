@@ -1,201 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Nombre Navideño Quijotesco</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Nombre Navideño Quijotesco</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fuente festiva y legible -->
-  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<!-- Tipografía única navideña -->
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      background: #f4efe6;
-      color: #2f5d50;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    .screen {
-      display: none;
-      text-align: center;
-      max-width: 420px;
-      padding: 30px;
-    }
+body {
+  margin: 0;
+  font-family: 'Mountains of Christmas', cursive;
+  background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  overflow: hidden;
+  color: #fff;
+}
 
-    .active {
-      display: block;
-    }
+.screen {
+  display: none;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-    h1 {
-      font-family: 'Mountains of Christmas', cursive;
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-    }
+.active { display: flex; }
 
-    h2 {
-      font-size: 1rem;
-      font-weight: normal;
-      margin-bottom: 25px;
-    }
+.frame {
+  background: rgba(0,0,0,0.55);
+  padding: 40px;
+  border-radius: 12px;
+  border: 8px solid #c9a24d;
+  position: relative;
+  max-width: 420px;
+}
 
-    button {
-      background: #b0302a;
-      color: #fff;
-      border: none;
-      padding: 14px 22px;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
+/* Luces navideñas */
+.frame::before {
+  content:"";
+  position:absolute;
+  inset:-15px;
+  border-radius:16px;
+  border:6px dotted #ffd700;
+  animation: blink 1.5s infinite alternate;
+}
 
-    button:hover {
-      background: #8f241f;
-    }
+@keyframes blink {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
 
-    select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 1rem;
-    }
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px gold;
+}
 
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 6px solid #ddd;
-      border-top: 6px solid #c9a24d;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
+button {
+  background: #b0302a;
+  border: none;
+  color: white;
+  padding: 16px 28px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255,215,0,0.7);
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  border-radius: 6px;
+}
 
-    .result-name {
-      font-size: 2rem;
-      margin: 20px 0;
-      font-family: 'Mountains of Christmas', cursive;
-      color: #b0302a;
-    }
+/* Estrellas cayendo */
+.star {
+  position: absolute;
+  top: -10px;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
 
-    .result-text {
-      font-size: 0.95rem;
-      margin-top: 10px;
-    }
-  </style>
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* Spinner estrella */
+.spinner {
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Cartel Hollywood */
+.marquee {
+  background: #300;
+  padding: 20px;
+  border-radius: 12px;
+  border: 6px solid gold;
+  box-shadow: 0 0 25px gold;
+  font-size: 2.2rem;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- PANTALLA 1 -->
-  <div class="screen active" id="screen1">
+<!-- ESTRELLAS -->
+<script>
+for(let i=0;i<40;i++){
+  let s=document.createElement('div');
+  s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.animationDuration=3+Math.random()*5+'s';
+  s.style.opacity=Math.random();
+  document.body.appendChild(s);
+}
+</script>
+
+<!-- PANTALLA 1 -->
+<div class="screen active" id="s1">
+  <div class="frame">
     <h1>Descubre tu nombre quijotesco</h1>
-    <h2>Edición cervantina, donde se mezcla la magia de la Navidad con la locura de los caballeros andantes</h2>
-    <button onclick="goToScreen(2)">¡CREA MI NOMBRE!</button>
+    <button onclick="go(2)">¡CREA MI NOMBRE!</button>
   </div>
+</div>
 
-  <!-- PANTALLA 2 -->
-  <div class="screen" id="screen2">
-    <h2>Elige tu día y tu mes de nacimiento</h2>
-
-    <select id="day">
-      <option value="">Día</option>
-    </select>
-
+<!-- PANTALLA 2 -->
+<div class="screen" id="s2">
+  <div class="frame">
+    <h1>Elige tu día y tu mes</h1>
+    <select id="day"></select>
     <select id="month">
       <option value="">Mes</option>
-      <option value="0">Enero</option>
-      <option value="1">Febrero</option>
-      <option value="2">Marzo</option>
-      <option value="3">Abril</option>
-      <option value="4">Mayo</option>
-      <option value="5">Junio</option>
-      <option value="6">Julio</option>
-      <option value="7">Agosto</option>
-      <option value="8">Septiembre</option>
-      <option value="9">Octubre</option>
-      <option value="10">Noviembre</option>
-      <option value="11">Diciembre</option>
+      <option value="0">Enero</option><option value="1">Febrero</option>
+      <option value="2">Marzo</option><option value="3">Abril</option>
+      <option value="4">Mayo</option><option value="5">Junio</option>
+      <option value="6">Julio</option><option value="7">Agosto</option>
+      <option value="8">Septiembre</option><option value="9">Octubre</option>
+      <option value="10">Noviembre</option><option value="11">Diciembre</option>
     </select>
-
-    <button onclick="generateName()">✨ DESVELAR MI NOMBRE</button>
+    <button onclick="generate()">✨ DESVELAR MI NOMBRE</button>
   </div>
+</div>
 
-  <!-- PANTALLA 3 -->
-  <div class="screen" id="screen3">
-    <div class="spinner"></div>
-    <p><strong>Consultando los libros…</strong><br>
-    mezclando magia navideña y locura hidalga</p>
+<!-- PANTALLA 3 -->
+<div class="screen" id="s3">
+  <div class="frame">
+    <div class="spinner">⭐</div>
+    <p>Consultando los libros…<br>mezclando magia navideña y locura hidalga</p>
   </div>
+</div>
 
-  <!-- PANTALLA 4 -->
-  <div class="screen" id="screen4">
-    <div class="result-name" id="resultName"></div>
-    <div class="result-text">
-      Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.
-    </div>
+<!-- PANTALLA 4 -->
+<div class="screen" id="s4">
+  <div class="frame">
+    <div class="marquee" id="result"></div>
+    <p>Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.</p>
   </div>
+</div>
 
-  <script>
-    const prefixes = [
-      "Don", "Doña", "Hidalgo", "Dama", "Caballero", "Escudero",
-      "Andante", "Guardían", "Cronista", "Peregrino", "Noble",
-      "Señor", "Señora", "Valiente", "Custodio", "Fiel",
-      "Intrépido", "Soñador", "Ilustre", "Honrado",
-      "Audaz", "Gallardo", "Virtuoso", "Leal",
-      "Errante", "Viajero", "Sabio", "Gentil",
-      "Heroico", "Brillante", "Legendario"
-    ];
+<script>
+const prefixes=[
+"Don","Doña","Hidalgo","Dama","Caballero","Escudero","Andante","Noble","Ilustre",
+"Valiente","Gallardo","Leal","Soñador","Audaz","Legendario","Virtuoso","Errante",
+"Heroico","Gentil","Honrado","Fiel","Custodio","Viajero","Cronista","Sabio",
+"Peregrino","Intrépido","Brillante","Magnánimo","Glorioso","Insigne"
+];
 
-    const suffixes = [
-      "del Polvorón", "del Turrón Real", "de la Estrella de Oriente",
-      "del Roscón Dorado", "del Belén Nevado", "del Molino Iluminado",
-      "del Carbón Travieso", "de la Nochebuena",
-      "del Brillo Navideño", "de los Reyes Magos",
-      "del Camino Manchego", "de la Magia Invernal"
-    ];
+const suffixes=[
+"del Polvorón","del Turrón Real","de la Estrella de Oriente","del Roscón Dorado",
+"del Belén Nevado","del Molino Iluminado","del Carbón Travieso","de la Nochebuena",
+"del Brillo Navideño","de los Reyes Magos","del Camino Manchego","de la Magia Invernal"
+];
 
-    function goToScreen(num) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen' + num).classList.add('active');
-    }
+function go(n){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById('s'+n).classList.add('active');
+}
 
-    function generateName() {
-      const day = document.getElementById('day').value;
-      const month = document.getElementById('month').value;
+function generate(){
+if(!day.value||!month.value){alert("Elige día y mes");return;}
+go(3);
+setTimeout(()=>{
+result.textContent=prefixes[day.value-1]+" "+suffixes[month.value];
+go(4);
+},5000);
+}
 
-      if (day === "" || month === "") {
-        alert("Por favor, elige día y mes");
-        return;
-      }
-
-      goToScreen(3);
-
-      setTimeout(() => {
-        const name = prefixes[day - 1] + " " + suffixes[month];
-        document.getElementById('resultName').textContent = name;
-        goToScreen(4);
-      }, 1800);
-    }
-
-    // Rellenar días
-    const daySelect = document.getElementById('day');
-    for (let i = 1; i <= 31; i++) {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = i;
-      daySelect.appendChild(opt);
-    }
-  </script>
+for(let i=1;i<=31;i++){
+day.innerHTML+=`<option value="${i}">${i}</option>`;
+}
+</script>
 
 </body>
 </html>
