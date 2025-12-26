@@ -18,7 +18,7 @@ body{
   color:#fff;
 }
 
-/* ESTRELLAS / COPOS */
+/* NIEVE / ESTRELLAS */
 .snow{
   position:fixed;
   top:-30px;
@@ -26,10 +26,7 @@ body{
   animation:fall linear infinite;
   pointer-events:none;
 }
-
-@keyframes fall{
-  to{transform:translateY(110vh)}
-}
+@keyframes fall{to{transform:translateY(110vh)}}
 
 /* PANTALLAS */
 .screen{
@@ -42,7 +39,7 @@ body{
 }
 .screen.active{display:flex}
 
-/* MARCO CENTRAL */
+/* MARCO */
 .frame{
   position:relative;
   background:rgba(255,255,255,0.15);
@@ -53,7 +50,7 @@ body{
   backdrop-filter: blur(4px);
 }
 
-/* LUCES FÍSICAS */
+/* LUCES */
 .lights{
   position:absolute;
   inset:-26px;
@@ -73,11 +70,7 @@ body{
 .green{background:#2a9d8f; box-shadow:0 0 10px #2a9d8f}
 .yellow{background:#ffd166; box-shadow:0 0 10px #ffd166}
 .blue{background:#4ea8de; box-shadow:0 0 10px #4ea8de}
-
-@keyframes blink{
-  from{opacity:.4}
-  to{opacity:1}
-}
+@keyframes blink{from{opacity:.4}to{opacity:1}}
 
 /* TEXTOS */
 .title{
@@ -129,7 +122,7 @@ select{
 <body>
 
 <script>
-/* NIEVE / ESTRELLAS */
+/* NIEVE */
 for(let i=0;i<55;i++){
   const s=document.createElement("div");
   s.className="snow";
@@ -144,8 +137,8 @@ for(let i=0;i<55;i++){
 <div class="screen active" id="screen1">
   <div class="frame">
     <div class="lights">
-      <span class="bulb red"></span><span class="bulb green"></span><span class="bulb yellow"></span><span class="bulb blue"></span>
-      <span class="bulb green"></span><span class="bulb red"></span><span class="bulb blue"></span><span class="bulb yellow"></span>
+      <span class="bulb red"></span><span class="bulb green"></span>
+      <span class="bulb yellow"></span><span class="bulb blue"></span>
     </div>
     <div class="title">Descubre tu nombre quijotesco</div>
     <div class="subtitle">
@@ -159,15 +152,8 @@ for(let i=0;i<55;i++){
 <!-- PANTALLA 2 -->
 <div class="screen" id="screen2">
   <div class="frame">
-    <div class="lights">
-      <span class="bulb yellow"></span><span class="bulb red"></span><span class="bulb green"></span><span class="bulb blue"></span>
-    </div>
     <div class="title">Elige tu día y tu mes</div>
-
-    <select id="day">
-      <option value="">Día</option>
-    </select>
-
+    <select id="day"><option value="">Día</option></select>
     <select id="month">
       <option value="">Mes</option>
       <option value="0">Enero</option><option value="1">Febrero</option>
@@ -177,7 +163,6 @@ for(let i=0;i<55;i++){
       <option value="8">Septiembre</option><option value="9">Octubre</option>
       <option value="10">Noviembre</option><option value="11">Diciembre</option>
     </select>
-
     <button id="revealBtn">✨ DESVELAR MI NOMBRE</button>
   </div>
 </div>
@@ -196,6 +181,10 @@ for(let i=0;i<55;i++){
 <!-- PANTALLA 4 -->
 <div class="screen" id="screen4">
   <div class="frame">
+    <div class="lights">
+      <span class="bulb red"></span><span class="bulb green"></span>
+      <span class="bulb yellow"></span><span class="bulb blue"></span>
+    </div>
     <div class="title" id="result"></div>
     <div class="subtitle">
       Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.
@@ -204,10 +193,11 @@ for(let i=0;i<55;i++){
 </div>
 
 <script>
-/* DATOS */
-const prefixes=[
-  "Don","Doña","Hidalgo","Dama","Caballero",
-  "Noble","Andante","Ilustre","Valiente","Gallardo"
+/* DATOS DE NOMBRES COMPLETOS */
+const titles=["Don","Doña","Señor","Señora"];
+const names=[
+  "Alonso","Dulcinea","Sancho","Teresa",
+  "Quijano","Aldonza","Martín","Leonor"
 ];
 const suffixes=[
   "del Polvorón","del Turrón Real","de la Estrella de Oriente",
@@ -220,13 +210,12 @@ for(let i=1;i<=31;i++){
   daySel.innerHTML+=`<option value="${i}">${i}</option>`;
 }
 
-/* NAVEGACIÓN SEGURA */
+/* NAVEGACIÓN */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-/* BOTONES */
 document.getElementById("startBtn").addEventListener("click",()=>show("screen2"));
 
 document.getElementById("revealBtn").addEventListener("click",()=>{
@@ -235,8 +224,11 @@ document.getElementById("revealBtn").addEventListener("click",()=>{
   if(!d||m===""){alert("Elige día y mes");return;}
   show("screen3");
   setTimeout(()=>{
-    const name=prefixes[(d-1)%prefixes.length]+" "+suffixes[m%suffixes.length];
-    document.getElementById("result").textContent=name;
+    const fullName=
+      titles[d%titles.length]+" "+
+      names[d%names.length]+" "+
+      suffixes[m%suffixes.length];
+    document.getElementById("result").textContent=fullName;
     show("screen4");
   },5000);
 });
