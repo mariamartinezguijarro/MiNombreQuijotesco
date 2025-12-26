@@ -5,187 +5,160 @@
 <title>Nombre Navideño Quijotesco</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Tipografía única navideña -->
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: 'Mountains of Christmas', cursive;
-  background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-  overflow: hidden;
-  color: #fff;
+body{
+margin:0;
+font-family:'Mountains of Christmas',cursive;
+background:url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+overflow:hidden;
+color:#fff;
 }
 
-.screen {
-  display: none;
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+/* COPOS */
+.snow{
+position:fixed;
+top:-20px;
+font-size:18px;
+animation:fall linear infinite;
+opacity:.8;
 }
 
-.active { display: flex; }
-
-.frame {
-  background: rgba(0,0,0,0.55);
-  padding: 40px;
-  border-radius: 12px;
-  border: 8px solid #c9a24d;
-  position: relative;
-  max-width: 420px;
+@keyframes fall{
+to{transform:translateY(110vh)}
 }
 
-/* Luces navideñas */
-.frame::before {
-  content:"";
-  position:absolute;
-  inset:-15px;
-  border-radius:16px;
-  border:6px dotted #ffd700;
-  animation: blink 1.5s infinite alternate;
+/* PANTALLAS */
+.screen{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
-@keyframes blink {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
+.active{display:flex}
+
+/* MARCO */
+.frame{
+background:rgba(0,0,0,.6);
+padding:40px;
+border-radius:18px;
+border:8px dotted gold;
+animation:lights 1.2s infinite alternate;
+max-width:420px;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px gold;
+@keyframes lights{
+0%{opacity:.6}
+100%{opacity:1}
 }
 
-button {
-  background: #b0302a;
-  border: none;
-  color: white;
-  padding: 16px 28px;
-  font-size: 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255,215,0,0.7);
+.marquee{
+font-size:2.6rem;
+border:6px solid gold;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 30px gold;
+background:#400;
 }
 
-select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  font-size: 1.1rem;
-  border-radius: 6px;
+.subtitle{
+margin:20px 0;
+font-size:1.1rem;
 }
 
-/* Estrellas cayendo */
-.star {
-  position: absolute;
-  top: -10px;
-  width: 6px;
-  height: 6px;
-  background: gold;
-  border-radius: 50%;
-  animation: fall linear infinite;
+button{
+font-family:inherit;
+font-size:1.3rem;
+padding:16px 30px;
+border:none;
+border-radius:12px;
+background:#b0302a;
+color:#fff;
+cursor:pointer;
+box-shadow:0 0 20px gold;
 }
 
-@keyframes fall {
-  to { transform: translateY(110vh); }
+select{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:1.1rem;
+border-radius:8px;
+border:none;
 }
 
-/* Spinner estrella */
-.spinner {
-  font-size: 3rem;
-  animation: spin 1s linear infinite;
+.spinner{
+font-size:3rem;
+animation:spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Cartel Hollywood */
-.marquee {
-  background: #300;
-  padding: 20px;
-  border-radius: 12px;
-  border: 6px solid gold;
-  box-shadow: 0 0 25px gold;
-  font-size: 2.2rem;
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 
 <body>
 
-<!-- ESTRELLAS -->
 <script>
 for(let i=0;i<40;i++){
-  let s=document.createElement('div');
-  s.className='star';
-  s.style.left=Math.random()*100+'%';
-  s.style.animationDuration=3+Math.random()*5+'s';
-  s.style.opacity=Math.random();
-  document.body.appendChild(s);
+let s=document.createElement('div');
+s.className='snow';
+s.textContent=Math.random()>.5?'❄️':'⭐';
+s.style.left=Math.random()*100+'%';
+s.style.animationDuration=4+Math.random()*6+'s';
+document.body.appendChild(s);
 }
 </script>
 
-<!-- PANTALLA 1 -->
 <div class="screen active" id="s1">
-  <div class="frame">
-    <h1>Descubre tu nombre quijotesco</h1>
-    <button onclick="go(2)">¡CREA MI NOMBRE!</button>
-  </div>
+<div class="frame">
+<div class="marquee">Descubre tu nombre quijotesco</div>
+<div class="subtitle">
+Magia navideña y locura hidalga se unen estas fiestas
+</div>
+<button onclick="go(2)">¡CREA MI NOMBRE!</button>
+</div>
 </div>
 
-<!-- PANTALLA 2 -->
 <div class="screen" id="s2">
-  <div class="frame">
-    <h1>Elige tu día y tu mes</h1>
-    <select id="day"></select>
-    <select id="month">
-      <option value="">Mes</option>
-      <option value="0">Enero</option><option value="1">Febrero</option>
-      <option value="2">Marzo</option><option value="3">Abril</option>
-      <option value="4">Mayo</option><option value="5">Junio</option>
-      <option value="6">Julio</option><option value="7">Agosto</option>
-      <option value="8">Septiembre</option><option value="9">Octubre</option>
-      <option value="10">Noviembre</option><option value="11">Diciembre</option>
-    </select>
-    <button onclick="generate()">✨ DESVELAR MI NOMBRE</button>
-  </div>
+<div class="frame">
+<h2>Elige tu día y tu mes</h2>
+<select id="day"></select>
+<select id="month">
+<option value="">Mes</option>
+<option value="0">Enero</option><option value="1">Febrero</option>
+<option value="2">Marzo</option><option value="3">Abril</option>
+<option value="4">Mayo</option><option value="5">Junio</option>
+<option value="6">Julio</option><option value="7">Agosto</option>
+<option value="8">Septiembre</option><option value="9">Octubre</option>
+<option value="10">Noviembre</option><option value="11">Diciembre</option>
+</select>
+<button onclick="generate()">✨ DESVELAR MI NOMBRE</button>
+</div>
 </div>
 
-<!-- PANTALLA 3 -->
 <div class="screen" id="s3">
-  <div class="frame">
-    <div class="spinner">⭐</div>
-    <p>Consultando los libros…<br>mezclando magia navideña y locura hidalga</p>
-  </div>
+<div class="frame">
+<div class="spinner">⭐</div>
+<p>Consultando los libros…<br>mezclando magia navideña y locura hidalga</p>
+</div>
 </div>
 
-<!-- PANTALLA 4 -->
 <div class="screen" id="s4">
-  <div class="frame">
-    <div class="marquee" id="result"></div>
-    <p>Dichosa edad y dichosos tiempos aquellos en los que este nombre sea pronunciado estas Navidades en la noble Ciudad Real.</p>
-  </div>
+<div class="frame">
+<div class="marquee" id="result"></div>
+</div>
 </div>
 
 <script>
-const prefixes=[
-"Don","Doña","Hidalgo","Dama","Caballero","Escudero","Andante","Noble","Ilustre",
-"Valiente","Gallardo","Leal","Soñador","Audaz","Legendario","Virtuoso","Errante",
-"Heroico","Gentil","Honrado","Fiel","Custodio","Viajero","Cronista","Sabio",
-"Peregrino","Intrépido","Brillante","Magnánimo","Glorioso","Insigne"
-];
+const prefixes=["Don","Doña","Hidalgo","Dama","Caballero","Noble","Andante"];
+const suffixes=["del Polvorón","del Turrón Real","de la Estrella de Oriente","del Molino Nevado"];
 
-const suffixes=[
-"del Polvorón","del Turrón Real","de la Estrella de Oriente","del Roscón Dorado",
-"del Belén Nevado","del Molino Iluminado","del Carbón Travieso","de la Nochebuena",
-"del Brillo Navideño","de los Reyes Magos","del Camino Manchego","de la Magia Invernal"
-];
+for(let i=1;i<=31;i++){
+day.innerHTML+=`<option value="${i}">${i}</option>`;
+}
 
 function go(n){
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -196,13 +169,9 @@ function generate(){
 if(!day.value||!month.value){alert("Elige día y mes");return;}
 go(3);
 setTimeout(()=>{
-result.textContent=prefixes[day.value-1]+" "+suffixes[month.value];
+result.textContent=prefixes[(day.value-1)%prefixes.length]+" "+suffixes[month.value];
 go(4);
 },5000);
-}
-
-for(let i=1;i<=31;i++){
-day.innerHTML+=`<option value="${i}">${i}</option>`;
 }
 </script>
 
