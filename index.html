@@ -17,7 +17,7 @@ body{
   overflow:hidden;
 }
 
-/* ---------------- FONDO NIEVE / ESTRELLAS ---------------- */
+/* NIEVE / ESTRELLAS */
 .snow{
   position:fixed;
   top:-40px;
@@ -30,7 +30,7 @@ body{
   to{transform:translateY(120vh)}
 }
 
-/* ---------------- PANTALLAS ---------------- */
+/* PANTALLAS */
 .screen{
   display:none;
   width:100vw;
@@ -41,7 +41,7 @@ body{
 }
 .screen.active{display:flex}
 
-/* ---------------- MARCO ---------------- */
+/* MARCO */
 .frame{
   position:relative;
   background:rgba(255,255,255,0.16);
@@ -50,74 +50,42 @@ body{
   max-width:560px;
   width:92%;
   backdrop-filter:blur(6px);
+  z-index:1;
 }
 
-/* ---------------- LUCES ---------------- */
+/* LUCES */
 .lights{
   position:absolute;
-  inset:-36px;
+  inset:-28px;
   pointer-events:none;
+  z-index:0;
 }
-
-.lights::before{
-  content:"";
+.bulb{
   position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      to right,
-      transparent 0 22px,
-      #e63946 22px 26px,
-      transparent 26px 44px,
-      #2a9d8f 44px 48px,
-      transparent 48px 66px,
-      #ffd166 66px 70px,
-      transparent 70px 88px,
-      #4ea8de 88px 92px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0 22px,
-      #e63946 22px 26px,
-      transparent 26px 44px,
-      #2a9d8f 44px 48px,
-      transparent 48px 66px,
-      #ffd166 66px 70px,
-      transparent 70px 88px,
-      #4ea8de 88px 92px
-    );
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  padding:22px;
-  box-sizing:border-box;
-  filter:drop-shadow(0 0 8px gold);
-  animation:twinkle 1.6s infinite alternate;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  animation:blink 1.4s infinite alternate;
 }
-
-@keyframes twinkle{
-  from{opacity:.6}
+@keyframes blink{
+  from{opacity:.4}
   to{opacity:1}
 }
 
-/* ---------------- TEXTOS ---------------- */
+/* TEXTOS */
 .title{
   font-size:3.2rem;
   margin-bottom:16px;
   color:#fff6d5;
   text-shadow:0 0 18px gold;
 }
-
 .subtitle{
   font-size:1.45rem;
   margin-bottom:34px;
   line-height:1.35;
 }
 
-/* ---------------- BOTONES ---------------- */
+/* BOTONES */
 button{
   font-family:inherit;
   font-size:1.4rem;
@@ -131,7 +99,7 @@ button{
 }
 button:hover{transform:scale(1.06)}
 
-/* ---------------- SELECT ---------------- */
+/* SELECT */
 select{
   width:100%;
   padding:14px;
@@ -141,7 +109,7 @@ select{
   border:none;
 }
 
-/* ---------------- CARGA ---------------- */
+/* CARGA */
 .spinner{
   font-size:4rem;
   animation:spin 1s linear infinite;
@@ -149,7 +117,7 @@ select{
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ---------------- RESULTADO ---------------- */
+/* RESULTADO */
 .result{
   font-size:2.8rem;
   margin-bottom:26px;
@@ -161,7 +129,7 @@ select{
 <body>
 
 <script>
-/* NIEVE Y ESTRELLAS */
+/* NIEVE */
 for(let i=0;i<70;i++){
   const s=document.createElement("div");
   s.className="snow";
@@ -228,6 +196,31 @@ for(let i=0;i<70;i++){
 </div>
 
 <script>
+/* LUCES MULTICOLOR */
+function crearLuces(){
+  document.querySelectorAll(".lights").forEach(container=>{
+    const colors=["#e63946","#2a9d8f","#ffd166","#4ea8de","#f4a261","#e9c46a"];
+    const rect=container.getBoundingClientRect();
+    const total=48;
+
+    for(let i=0;i<total;i++){
+      const b=document.createElement("div");
+      b.className="bulb";
+      const c=colors[i%colors.length];
+      b.style.background=c;
+      b.style.boxShadow="0 0 12px "+c;
+
+      if(i<12){ b.style.top="-8px"; b.style.left=(i/12*100)+"%"; }
+      else if(i<24){ b.style.right="-8px"; b.style.top=((i-12)/12*100)+"%"; }
+      else if(i<36){ b.style.bottom="-8px"; b.style.left=((i-24)/12*100)+"%"; }
+      else{ b.style.left="-8px"; b.style.top=((i-36)/12*100)+"%"; }
+
+      container.appendChild(b);
+    }
+  });
+}
+crearLuces();
+
 /* NOMBRES */
 const titulos=["Don","Doña","Señor","Señora"];
 const quijote=[
@@ -238,8 +231,7 @@ const quijote=[
 const navidad=[
   "del Polvorón","del Turrón Real","de la Estrella de Oriente",
   "del Molino Nevado","de la Nochebuena","de los Reyes Magos",
-  "del Roscón Dorado","del Portal Iluminado","de la Campana Santa",
-  "del Trineo Festivo","del Muérdago Encantado","de la Nieve Eterna"
+  "del Roscón Dorado","del Portal Iluminado"
 ];
 
 /* DÍAS */
